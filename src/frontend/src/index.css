@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "General Sans", sans-serif;
+    --font-body: "Geist Mono", monospace;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.625rem;
+
+    --background: 0.1 0.02 240;
+    --foreground: 0.92 0.04 240;
+    --card: 0.16 0.02 240;
+    --card-foreground: 0.92 0.04 240;
+    --popover: 0.22 0.02 240;
+    --popover-foreground: 0.92 0.04 240;
+
+    --primary: 0.7 0.22 142;
+    --primary-foreground: 0.1 0.02 240;
+
+    --secondary: 0.55 0.22 25;
+    --secondary-foreground: 0.92 0.04 240;
+    --muted: 0.22 0.02 240;
+    --muted-foreground: 0.65 0.03 240;
+
+    --accent: 0.75 0.18 48;
+    --accent-foreground: 0.1 0.02 240;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.92 0.04 240;
+
+    --border: 0.25 0.02 240;
+    --input: 0.2 0.02 240;
+    --ring: 0.7 0.22 142;
+
+    --chart-1: 0.7 0.22 142;
+    --chart-2: 0.55 0.22 25;
+    --chart-3: 0.6 0.18 55;
+    --chart-4: 0.75 0.18 48;
+    --chart-5: 0.65 0.15 100;
+
+    --sidebar: 0.14 0.02 240;
+    --sidebar-foreground: 0.92 0.04 240;
+    --sidebar-primary: 0.7 0.22 142;
+    --sidebar-primary-foreground: 0.1 0.02 240;
+    --sidebar-accent: 0.22 0.02 240;
+    --sidebar-accent-foreground: 0.85 0.03 240;
+    --sidebar-border: 0.25 0.02 240;
+    --sidebar-ring: 0.7 0.22 142;
+  }
+
+  .dark {
+    --background: 0.1 0.02 240;
+    --foreground: 0.92 0.04 240;
+    --card: 0.16 0.02 240;
+    --card-foreground: 0.92 0.04 240;
+    --popover: 0.22 0.02 240;
+    --popover-foreground: 0.92 0.04 240;
+
+    --primary: 0.7 0.22 142;
+    --primary-foreground: 0.1 0.02 240;
+
+    --secondary: 0.55 0.22 25;
+    --secondary-foreground: 0.92 0.04 240;
+    --muted: 0.22 0.02 240;
+    --muted-foreground: 0.65 0.03 240;
+
+    --accent: 0.75 0.18 48;
+    --accent-foreground: 0.1 0.02 240;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.92 0.04 240;
+
+    --border: 0.25 0.02 240;
+    --input: 0.2 0.02 240;
+    --ring: 0.7 0.22 142;
+
+    --chart-1: 0.7 0.22 142;
+    --chart-2: 0.55 0.22 25;
+    --chart-3: 0.6 0.18 55;
+    --chart-4: 0.75 0.18 48;
+    --chart-5: 0.65 0.15 100;
+
+    --sidebar: 0.14 0.02 240;
+    --sidebar-foreground: 0.92 0.04 240;
+    --sidebar-primary: 0.7 0.22 142;
+    --sidebar-primary-foreground: 0.1 0.02 240;
+    --sidebar-accent: 0.22 0.02 240;
+    --sidebar-accent-foreground: 0.85 0.03 240;
+    --sidebar-border: 0.25 0.02 240;
+    --sidebar-ring: 0.7 0.22 142;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  @font-face {
+    font-family: "General Sans";
+    src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Geist Mono";
+    src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+    font-weight: 400 600;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+  }
+
+  .gauge-track {
+    @apply relative h-64 w-64 rounded-full border-4 border-muted;
+  }
+
+  .gauge-fill {
+    @apply absolute inset-0 rounded-full transition-all duration-500;
+  }
+
+  .metric-card {
+    @apply border border-border bg-card p-4 transition-all duration-300 hover:border-accent;
+  }
+
+  .metric-value {
+    @apply font-mono text-2xl font-bold text-foreground;
+  }
+
+  .metric-label {
+    @apply text-xs font-medium text-muted-foreground uppercase tracking-wide;
+  }
+
+  .metric-change {
+    @apply font-mono text-sm;
+  }
+
+  .metric-change.positive {
+    @apply text-primary;
+  }
+
+  .metric-change.negative {
+    @apply text-secondary;
+  }
+
+  .sparkline {
+    @apply h-8 w-full;
+  }
+
+  .sentiment-label {
+    @apply text-center font-display text-3xl font-bold;
+  }
+
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

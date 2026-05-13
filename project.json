@@ -1,0 +1,29 @@
+{
+  "overview": "ICP Pulse is a live bull/bear sentiment dashboard tracking 9 crypto assets: ICP, BTC, ETH, SOL, XRP, ADA, AVAX, INJ, and FET. Each asset has its own sentiment gauge, price card, on-chain signal trackers, sparkline charts, and event/governance log. Data is sourced from CoinGecko and asset-specific APIs with auto-refresh every 5 minutes.",
+  "features": [
+    "Asset selector with 9 cryptocurrencies (ICP, BTC, ETH, SOL, XRP, ADA, AVAX, INJ, FET)",
+    "Per-asset bull/bear sentiment gauge (0-100)",
+    "Real-time price, 24h/7d change, market cap, and volume",
+    "Asset-specific on-chain signal trackers (e.g. ETH burn rate, BTC MVRV, SOL validators)",
+    "7-day and 30-day sparkline price charts",
+    "Protocol event logs per asset",
+    "Governance tracker with NNS proposals for ICP",
+    "URL-based asset and tab state persistence",
+    "Auto-refresh every 5 minutes with manual refresh button",
+    "Accuracy badges showing real vs simulated data sources"
+  ],
+  "category": "finance",
+  "tags": [
+    "crypto",
+    "dashboard",
+    "sentiment",
+    "bull-bear",
+    "icp",
+    "bitcoin",
+    "ethereum",
+    "defi",
+    "tracker",
+    "signals"
+  ],
+  "last_updated": "2026-05-13T00:11:00.452Z"
+}

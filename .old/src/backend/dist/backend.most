@@ -1,0 +1,109 @@
+// Version: 1.0.0
+type AssetId__974321506 =
+  {#ADA; #AVAX; #BTC; #ETH; #FET; #ICP; #INJ; #SOL; #XRP};
+type AssetProtocolEvent__484585326 =
+  {
+    assetId : AssetId__974321506;
+    description : Text;
+    eventType : Text;
+    timestamp : Int;
+    title : Text
+  };
+type AssetSnapshot__941991078 =
+  {
+    assetId : AssetId__974321506;
+    events : [AssetProtocolEvent__484585326];
+    marketCap : Float;
+    metrics : [(Text, Float)];
+    price : Float;
+    priceChange24h : Float;
+    priceChange7d : Float;
+    sentimentScore : Nat;
+    timestamp : Int;
+    volume24h : Float
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type MetricSnapshot__491116682 =
+  {
+    activeAddresses24h : Nat;
+    activeAddresses30d : Nat;
+    activeAddresses7d : Nat;
+    activeAddressesIsReal : Bool;
+    burnRateIsReal : Bool;
+    cycleBurnRateTcycles : Float;
+    devCommitsWeekly : Nat;
+    icpPrice24hChange : Float;
+    icpPriceUsd : Float;
+    sentimentScore : Float;
+    timestamp : Int;
+    totalCanistersDeployed : Nat;
+    tvlUsd : Float
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NnsProposalStatus__694165272 =
+  {#adopted; #executed; #executing; #failed; #open; #rejected};
+type NnsProposal__550641623 =
+  {
+    id : Nat64;
+    isMission70Related : Bool;
+    proposer : Text;
+    status : NnsProposalStatus__694165272;
+    summary : Text;
+    title : Text;
+    topic : Text;
+    votesNo : Nat64;
+    votesYes : Nat64;
+    votingPeriodEnd : Int
+  };
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Node__585180226<T> =
+  {
+    var next : ?Node__585180226<T>;
+    var previous : ?Node__585180226<T>;
+    value : T
+  };
+type ProtocolEvent__39534794 =
+  {
+    category : {#chainFusion; #governance; #mission70; #other};
+    date : Text;
+    title : Text
+  };
+actor {
+  stable assetSnapshots :
+    {
+      var root :
+        Node__46230540<Text, List__415060402<AssetSnapshot__941991078>>;
+      var size : Nat__490723111
+    };
+  stable events :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ProtocolEvent__39534794]];
+      var elementIndex : Nat__490723111
+    };
+  stable proposals :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?NnsProposal__550641623]];
+      var elementIndex : Nat__490723111
+    };
+  stable snapshots :
+    {
+      var back : ?Node__585180226<MetricSnapshot__491116682>;
+      var front : ?Node__585180226<MetricSnapshot__491116682>;
+      var size : Nat__490723111
+    }
+};

@@ -1,0 +1,165 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type SentimentBreakdown = 
+ record {
+   drivingFactors: vec MetricSignal;
+   overallScore: float64;
+ };
+type RefreshResult = 
+ variant {
+   err: text;
+   ok: record {
+         dataSourceStatus: DataSourceStatus;
+         snapshot: MetricSnapshot;
+       };
+ };
+type ProtocolEvent = 
+ record {
+   category: variant {
+               chainFusion;
+               governance;
+               mission70;
+               other;
+             };
+   date: text;
+   title: text;
+ };
+type NnsProposalStatus = 
+ variant {
+   adopted;
+   executed;
+   executing;
+   failed;
+   open;
+   rejected;
+ };
+type NnsProposal = 
+ record {
+   id: nat64;
+   isMission70Related: bool;
+   proposer: text;
+   status: NnsProposalStatus;
+   summary: text;
+   title: text;
+   topic: text;
+   votesNo: nat64;
+   votesYes: nat64;
+   votingPeriodEnd: int;
+ };
+type MetricSnapshot = 
+ record {
+   activeAddresses24h: nat;
+   activeAddresses30d: nat;
+   activeAddresses7d: nat;
+   activeAddressesIsReal: bool;
+   burnRateIsReal: bool;
+   cycleBurnRateTcycles: float64;
+   devCommitsWeekly: nat;
+   icpPrice24hChange: float64;
+   icpPriceUsd: float64;
+   sentimentScore: float64;
+   timestamp: int;
+   totalCanistersDeployed: nat;
+   tvlUsd: float64;
+ };
+type MetricSignal = 
+ record {
+   name: text;
+   signal: variant {
+             bear;
+             bull;
+             neutral;
+           };
+   value: text;
+ };
+type DataSourceStatus = 
+ record {
+   activeAddressesLive: bool;
+   burnRateLive: bool;
+   icpPriceLive: bool;
+   proposalsLive: bool;
+ };
+type AssetSnapshot = 
+ record {
+   assetId: AssetId;
+   events: vec AssetProtocolEvent;
+   marketCap: float64;
+   metrics: vec record {
+                  text;
+                  float64;
+                };
+   price: float64;
+   priceChange24h: float64;
+   priceChange7d: float64;
+   sentimentScore: nat;
+   timestamp: int;
+   volume24h: float64;
+ };
+type AssetProtocolEvent = 
+ record {
+   assetId: AssetId;
+   description: text;
+   eventType: text;
+   timestamp: int;
+   title: text;
+ };
+type AssetId = 
+ variant {
+   ADA;
+   AVAX;
+   BTC;
+   ETH;
+   FET;
+   ICP;
+   INJ;
+   SOL;
+   XRP;
+ };
+service : {
+  getGovernanceProposals: () -> (vec NnsProposal) query;
+  getGovernanceProposalsByAsset: (assetId: text) ->
+   (vec AssetProtocolEvent) query;
+  getLatestSnapshot: () -> (opt MetricSnapshot) query;
+  getLatestSnapshotByAsset: (assetId: text) -> (opt AssetSnapshot) query;
+  getOpenProposals: () -> (vec NnsProposal) query;
+  getProtocolEvents: () -> (vec ProtocolEvent) query;
+  getRecentProposals: (limit: nat) -> (vec NnsProposal) query;
+  getSentimentBreakdown: () -> (SentimentBreakdown) query;
+  getSnapshotHistory: (days: nat) -> (vec MetricSnapshot) query;
+  getSnapshotHistoryByAsset: (assetId: text, limit: nat) ->
+   (vec AssetSnapshot) query;
+  refreshAllAssets: () -> ();
+  refreshAsset: (assetIdText: text) -> ();
+  refreshMetrics: () -> (RefreshResult);
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  transform_addresses: (input: TransformationInput) ->
+   (TransformationOutput) query;
+  transform_burnrate: (input: TransformationInput) ->
+   (TransformationOutput) query;
+  transform_cg_chart: (input: TransformationInput) ->
+   (TransformationOutput) query;
+  transform_cg_markets: (input: TransformationInput) ->
+   (TransformationOutput) query;
+  transform_proposals: (input: TransformationInput) ->
+   (TransformationOutput) query;
+}
